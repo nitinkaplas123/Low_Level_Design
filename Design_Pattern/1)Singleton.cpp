@@ -9,7 +9,7 @@ A design pattern where:
 3. A static method (getInstance()) provides global access to that one instance.
 
 
-
+     
 
 Code:
 class A 
