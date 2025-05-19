@@ -40,16 +40,19 @@ class Main(){
 
 
 
-// When we have only parent class.
 
-//Code1
+//Code1 -> Original Behavior
 class Notification{
     public void sendNotification(){
         System.out.println("normal notification!!");
     }
 }
 
-
+class TextNotification extends Notification{
+    public void sendNotification(){
+         System.out.println("text Notification!!");
+    }
+}
 
 
 public class Demo{
@@ -61,3 +64,85 @@ public class Demo{
 
 
 
+//Code2 -: Replace Parent with Child
+
+class Notification{
+    public void sendNotification(){
+        System.out.println("normal notification!!");
+    }
+}
+
+class TextNotification extends Notification{
+    public void sendNotification(){
+         System.out.println("text Notification!!");
+    }
+}
+
+
+public class Demo{
+    public static void main(String []args){
+          Notification notification=new TextNotification();
+          notification.sendNotification();
+    }
+}
+
+
+Note Points-:
+1. The variable type is Notification (parent class).
+2. The object is TextNotification (child class).
+3. You override sendNotification() in the child class.
+4. So at runtime, Java calls the child's version of sendNotification().
+
+This is dynamic method dispatch (runtime polymorphism) — and this exact scenario is what the Liskov Substitution Principle supports.
+
+
+
+
+// If tomorrow i want to send the whatsApp Notification -> 
+
+
+//Code:
+class Notification{
+    public void sendNotification(){
+        System.out.println("normal notification!!");
+    }
+}
+
+class TextNotification extends Notification{
+    public void sendNotification(){
+         System.out.println("text Notification!!");
+    }
+}
+
+
+class WhatsAppNotification extends Notification{
+    public void sendNotification(){
+         System.out.println("WhatsApp Notification!!");
+    }
+}
+
+
+
+public class Demo{
+    public static void main(String []args){
+          Notification notification=new WhatsAppNotification();
+          notification.sendNotification();
+    }
+}
+
+
+
+// What Does "Substitution" Mean in LSP?
+In simple terms, substitution means that you can replace an object of a parent class with an object of a child class
+without affecting the correctness of the program.
+
+// So, when you substitute a Notification with a WhatsAppNotification, you're essentially saying:
+"Wherever I expect a Notification object, I can also use a WhatsAppNotification object, and the program should still behave correctly."
+
+// Key Concept: Polymorphism
+This concept is very closely tied to polymorphism in object-oriented programming. Here's how it works:
+
+1. You have a parent class (Notification), which defines the general structure.
+2. You have child classes (like TextNotification and WhatsAppNotification) that extend Notification and provide 
+   specific implementations for certain methods (like sendNotification()).
+3. At runtime, the program automatically decides which version of the method to call, based on the actual object type, not the reference type.
